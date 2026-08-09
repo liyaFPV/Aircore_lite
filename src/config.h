@@ -1,5 +1,10 @@
 #pragma once
 
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define _LCD_TYPE 1
+
 // =====================================================
 //                     GPIO
 // =====================================================
@@ -42,14 +47,13 @@
 
 #define DS18B20_PRECISION 12   // 9..12 бит
 
-
 // =====================================================
 //                    TIMERS
 // =====================================================
 
 #define DISPLAY_UPDATE_MS 1000
-#define SENSOR_UPDATE_MS  1000
-
+#define SENSOR_UPDATE_MS  10000
+#define DEBOUNCE_TIME     200
 
 // =====================================================
 //                    SERIAL
@@ -71,3 +75,5 @@
 
 #define Latitude 56.088483
 #define Longitude 54.247751
+
+#endif

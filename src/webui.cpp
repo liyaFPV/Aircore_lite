@@ -16,8 +16,8 @@ void build() {
 
     if(ui.uri("/")) {
 
-        GP.AJAX_PLOT_DARK("plot_temp",temp_names,2,100,10000);
-        GP.AJAX_PLOT_DARK("plot_arr",arr_names,2,100,10000);
+        GP.AJAX_PLOT_DARK("plot_temp",temp_names,2,100,SENSOR_UPDATE_MS);
+        GP.AJAX_PLOT_DARK("plot_arr",arr_names,2,100,SENSOR_UPDATE_MS);
 
     } else if(ui.uri("/settings")) {
 
