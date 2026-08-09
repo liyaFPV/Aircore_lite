@@ -45,6 +45,7 @@ void setup() {
     getMeteo();
   }
   if(wifi_is_ap()){
+    delay(2000);
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("AP: ");

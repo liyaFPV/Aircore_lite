@@ -5,8 +5,53 @@ extern Alash_DS1302 rtc;
 
 int menu_index = 0;
 const int menu_count = 1;
+int data[20];
 
 /*Системные функции*/
+
+#define GRAPH_WIDTH 16
+
+void initPlot() {
+    byte row8[8] = {255,255,255,255,255,255,255,255};
+    byte row7[8] = {0,255,255,255,255,255,255,255};
+    byte row6[8] = {0,0,255,255,255,255,255,255};
+    byte row5[8] = {0,0,0,255,255,255,255,255};
+    byte row4[8] = {0,0,0,0,255,255,255,255};
+    byte row3[8] = {0,0,0,0,0,255,255,255};
+    byte row2[8] = {0,0,0,0,0,0,255,255};
+    byte row1[8] = {0,0,0,0,0,0,0,255};
+
+    lcd.createChar(0, row8);
+    lcd.createChar(1, row1);
+    lcd.createChar(2, row2);
+    lcd.createChar(3, row3);
+    lcd.createChar(4, row4);
+    lcd.createChar(5, row5);
+    lcd.createChar(6, row6);
+    lcd.createChar(7, row7);
+}
+
+
+void drawPlotLast(int *array, int arraySize) {
+    int start = arraySize - GRAPH_WIDTH;
+    for (int x = 0; x < GRAPH_WIDTH; x++) {
+        int value = constrain(array[start + x], 0, 100);
+        int level = map(value, 0, 100, 0, 32);
+        for (byte y = 0; y < 4; y++) {
+            int part = level - y * 8;
+            lcd.setCursor(x, 3 - y);
+            if (part >= 8) {
+                lcd.write(0);
+            }
+            else if (part > 0) {
+                lcd.write(part);
+            }
+            else {
+                lcd.write(16);
+            }
+        }
+    }
+}
 void error(const char* msg) {
   lcd.clear();
   lcd.setCursor(0, 0);
@@ -51,10 +96,25 @@ void menu_main(){
 }
 
 
+void menu_test(){
+    randomSeed(micros());
+    for (int i = 0; i < 20; i++) {
+        data[i] = random(0, 101);
+    }
+
+    // Выводим массив в Serial
+    for (int i = 0; i < 20; i++) {
+        Serial.print(data[i]);
+        Serial.print(" ");
+    }
+    drawPlotLast(data, 20);
+}
+
 /*Системный Api*/
 void menu_init() {
     menu_index = 0;
     pinMode(BUTTON_PIN, INPUT_PULLUP);
+    initPlot();
 
     attachInterrupt(
         digitalPinToInterrupt(BUTTON_PIN),
@@ -68,7 +128,8 @@ void draw_menu_by_index(int index) {
 
     switch (index) {
         case 0:
-            menu_main();
+            //menu_main();
+            menu_test();
             break;
     }
 }

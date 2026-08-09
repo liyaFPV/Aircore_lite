@@ -55,6 +55,9 @@
 #define SENSOR_UPDATE_MS  10000
 #define DEBOUNCE_TIME     200
 
+#define HORS_UPDATE_S    240
+#define DAY_UPDATE_S     5400
+
 // =====================================================
 //                    SERIAL
 // =====================================================
