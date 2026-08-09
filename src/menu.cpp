@@ -4,12 +4,25 @@ extern LCD_1602_RUS lcd;
 extern Alash_DS1302 rtc;
 
 int menu_index = 0;
-const int menu_count = 1;
+const int menu_count = 2;
 int data[20];
 
 /*Системные функции*/
 
 #define GRAPH_WIDTH 16
+
+void getMinMax(int *array, uint16_t size, int &minValue, int &maxValue) {
+    minValue = array[0];
+    maxValue = array[0];
+
+    for (uint16_t i = 1; i < size; i++) {
+        if (array[i] < minValue)
+            minValue = array[i];
+
+        if (array[i] > maxValue)
+            maxValue = array[i];
+    }
+}
 
 void initPlot() {
     byte row8[8] = {255,255,255,255,255,255,255,255};
@@ -108,6 +121,14 @@ void menu_test(){
         Serial.print(" ");
     }
     drawPlotLast(data, 20);
+
+    int minValue, maxValue;
+    getMinMax(data, 20, minValue, maxValue);
+
+    lcd.setCursor(17, 0);
+    lcd.print(String(maxValue));
+    lcd.setCursor(17, 1);
+    lcd.print(String(minValue));
 }
 
 /*Системный Api*/
@@ -128,7 +149,9 @@ void draw_menu_by_index(int index) {
 
     switch (index) {
         case 0:
-            //menu_main();
+            menu_main();
+            break;
+        case 1:
             menu_test();
             break;
     }

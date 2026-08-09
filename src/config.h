@@ -10,19 +10,19 @@
 // =====================================================
 
 // I2C
-#define I2C_SDA D2
-#define I2C_SCL D1
+#define I2C_SDA 4//D2
+#define I2C_SCL 5//D1
 
 // DS18B20
-#define DS18B20_PIN D5
+#define DS18B20_PIN 14//D5
 
 // DS1302 RTC
-#define RTC_CLK D6
-#define RTC_DAT D7
-#define RTC_RST D8
+#define RTC_CLK 12//D6
+#define RTC_DAT 13//D7
+#define RTC_RST 15//D8
 
 // Button
-#define BUTTON_PIN D4
+#define BUTTON_PIN 10//SD3
 
 
 // =====================================================
