@@ -11,7 +11,7 @@
 #include "sensor.h"
 #include "menu.h"
 
-LCD_1602_RUS lcd(LCD_I2C_ADDR, LCD_COLUMNS, LCD_ROWS);
+LCD_1602_RUS lcd(LCD_I2C_ADDR, LCD_COLUMNS, LCD_ROWS, 4);
 Alash_DS1302 rtc = Alash_DS1302(RTC_CLK, RTC_DAT, RTC_RST);
 
 void lcd_init() {
@@ -24,7 +24,7 @@ void lcd_init() {
 void print_load(){
   lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("Aircore Lite");
+  lcd.print("Aircore Lite "+String(FW_VERSION));
   lcd.setCursor(0, 1);
   lcd.print("Загрузка...");
   lcd.setCursor(0, 3);
