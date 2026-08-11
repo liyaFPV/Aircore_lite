@@ -115,7 +115,7 @@ void build_plot_js() {
 void build_plot(const String& name, const char** labels, int n, int** bufs, int count, int step, int window) {
     String s = F("<div id='");
     s += name;
-    s += F("' class='chartBlock'></div><script>\nvar ");
+    s += F("' class='chartBlock' style='margin-bottom:24px'></div><script>\nvar ");
     s += name;
     s += F("=new GPlot('");
     s += name;
